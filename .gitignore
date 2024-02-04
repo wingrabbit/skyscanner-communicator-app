@@ -1,5 +1,6 @@
 config.py
 tests.py
+tests_logic.py
 search_results/
 
 # Byte-compiled / optimized / DLL files
