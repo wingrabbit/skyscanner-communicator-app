@@ -18,5 +18,6 @@ def get_search_result(task: Task, unformatted_prices) -> SearchResult:
         str(task.date_return),
         extract_price_if_exists(unformatted_prices['direct']),
         extract_price_if_exists(unformatted_prices['one']),
-        extract_price_if_exists(unformatted_prices['twoOrMore'])
+        extract_price_if_exists(unformatted_prices['twoOrMore']),
+        result_id=task.id
     )
