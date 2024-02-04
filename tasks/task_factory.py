@@ -13,6 +13,6 @@ def generate_tasks(global_task: GlobalTask) -> [Task]:
     while curr <= end_date:
         for i in range(global_task.days_range[0], global_task.days_range[1]+1):
             result.append(Task(global_task.origin, global_task.destination, curr.strftime(
-                '%Y-%m-%d'), (curr+datetime.timedelta(days=i)).strftime('%Y-%m-%d')))
+                '%Y-%m-%d'), (curr+datetime.timedelta(days=i)).strftime('%Y-%m-%d'), search_id=global_task.id))
         curr += datetime.timedelta(days=1)
     return result
