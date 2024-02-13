@@ -13,5 +13,5 @@ while True:
     new_searches = get_new_raw_requests()
     for search in new_searches:
         parts = search["request"].split()
-        execute_dao_single_search(search["chat_id"], parts[0], parts[1], [parts[2], parts[3]], [int(parts[4]), int(parts[5])])
+        execute_dao_single_search(search["chat_id"], parts[0], parts[1], [parts[2], parts[3]], [int(parts[4]), int(parts[5])], search["id"])
     time.sleep(1)

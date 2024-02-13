@@ -10,12 +10,14 @@ from dao_communication.dao_city import get_city
 from dao_communication.dao_search import get_search
 from dao_communication.dao_result import insert_results
 from dao_communication.dao_price import insert_price
+from dao_communication.dao_raw_request import update_raw_request
 
-def execute_dao_single_search(user_id, city_from, city_to, date_range, days_range):
+def execute_dao_single_search(user_id, city_from, city_to, date_range, days_range, raw_search_id=None):
     destination_from = get_city(city_from)
     destination_to = get_city(city_to)
 
     global_task = get_search(user_id, destination_from, destination_to, date_range, days_range)
+    update_raw_request(raw_search_id, "PROGRESS", global_task.id)
 
     tasks = generate_tasks(global_task)
     insert_results(tasks)
