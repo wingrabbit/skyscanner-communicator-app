@@ -17,7 +17,7 @@ def execute_dao_single_search(user_id, city_from, city_to, date_range, days_rang
     destination_to = get_city(city_to)
 
     global_task = get_search(user_id, destination_from, destination_to, date_range, days_range)
-    update_raw_request(raw_search_id, "PROGRESS", global_task.id)
+    update_raw_request(raw_search_id, "IN PROGRESS", global_task.id)
 
     tasks = generate_tasks(global_task)
     insert_results(tasks)
@@ -30,4 +30,6 @@ def execute_dao_single_search(user_id, city_from, city_to, date_range, days_rang
         final_search_result = get_search_result(task, unformatted_prices)
         insert_price(final_search_result)
     
+    update_raw_request(raw_search_id, "DONE", global_task.id)
+
     print(f'Job {global_task.id} finished, {len(tasks)} tasks executed')
