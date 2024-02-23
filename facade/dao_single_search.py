@@ -24,11 +24,17 @@ def execute_dao_single_search(user_id, city_from, city_to, date_range, days_rang
 
     for task in tasks:
         print(task)
-        task_result = execute_task(task)
-        data = ast.literal_eval(json.dumps(task_result))
-        unformatted_prices = get_prices(ast.literal_eval(data))
-        final_search_result = get_search_result(task, unformatted_prices)
-        insert_price(final_search_result)
+        try:
+            task_result = execute_task(task)
+            data = ast.literal_eval(json.dumps(task_result))
+            unformatted_prices = get_prices(ast.literal_eval(data))
+            final_search_result = get_search_result(task, unformatted_prices)
+        except Exception as e:
+            print(f'Could not execute {str(task)}, {e}')
+        try:
+            insert_price(final_search_result)
+        except Exception as e:
+            print(f'Could not insert {str(final_search_result)}, {e}')
     
     update_raw_request(raw_search_id, "DONE", global_task.id)
 

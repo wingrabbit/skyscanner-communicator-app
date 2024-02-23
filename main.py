@@ -10,8 +10,14 @@ from facade.dao_single_search import execute_dao_single_search
 from dao_communication.dao_raw_request import get_new_raw_requests
 
 while True:
-    new_searches = get_new_raw_requests()
-    for search in new_searches:
-        parts = search["request"].split()
-        execute_dao_single_search(search["chat_id"], parts[0], parts[1], [parts[2], parts[3]], [int(parts[4]), int(parts[5])], search["id"])
+    try:
+        new_searches = get_new_raw_requests()
+        for search in new_searches:
+            try:
+                parts = search["request"].split()
+                execute_dao_single_search(search["chat_id"], parts[0], parts[1], [parts[2], parts[3]], [int(parts[4]), int(parts[5])], search["id"])
+            except Exception as ex:
+                print(f'Failed to execute {parts}, {ex}')
+    except Exception as e:
+        print('Error occured: ', e)
     time.sleep(1)
